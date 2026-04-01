@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h3>Leitura ID: ${leitura.id}</h3>
                 <p class="temp">Temperatura: ${leitura.temperatura} °C</p>
                 <p class="umidade">Umidade: ${leitura.umidade} %</p>
+                <p class="pressao">Pressão: ${leitura.pressao} hPa</p>
                 <p class="timestamp">
                     ${new Date(leitura.timestamp).toLocaleString('pt-BR')}
                 </p>
