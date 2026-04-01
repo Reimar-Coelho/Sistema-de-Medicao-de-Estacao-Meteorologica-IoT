@@ -1,4 +1,7 @@
 import serial, json, requests, time, os
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path='./.env')
 
 PORTA = os.getenv('PORTA')
 BAUD_RATE = os.getenv('BAUD_RATE')

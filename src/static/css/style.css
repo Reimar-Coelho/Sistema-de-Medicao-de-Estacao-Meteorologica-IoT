@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+#refresh-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#refresh-btn:hover {
+    background-color: #45a049;
+}
+
+#leituras-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.leitura-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 300px;
+}
+
+.leitura-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.leitura-card p {
+    margin: 5px 0;
+}
+
+.temp {
+    color: #e74c3c;
+}
+
+.umidade {
+    color: #3498db;
+}
+
+.timestamp {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
