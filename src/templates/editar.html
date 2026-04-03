@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Leitura</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-title">
+                <h1>Estação Meteorológica IoT</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="/historico" class="nav-link">Histórico</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="latest">
+        <h2>Editar Leitura</h2>
+
+        <form method="POST" action="" class="editar-form">
+            <div class="form-row">
+                <label for="id">ID</label>
+                <input type="text" id="id" value="{{ leitura.id }}" readonly>
+            </div>
+            <div class="form-row">
+                <label for="temperatura">Temperatura (°C)</label>
+                <input type="number" step="0.01" name="temperatura" id="temperatura" required value="{{ leitura.temperatura }}">
+            </div>
+            <div class="form-row">
+                <label for="umidade">Umidade (%)</label>
+                <input type="number" step="0.01" name="umidade" id="umidade" required value="{{ leitura.umidade }}">
+            </div>
+            <div class="form-row">
+                <label for="pressao">Pressão (hPa)</label>
+                <input type="number" step="0.01" name="pressao" id="pressao" required value="{{ leitura.pressao }}">
+            </div>
+            <div class="form-row">
+                <label for="timestamp">Timestamp</label>
+                <input type="text" id="timestamp" value="{{ leitura.timestamp }}" readonly>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="historic-action-btn historic-action-btn-editar">Salvar alterações</button>
+                <a href="/historico" class="historic-action-btn historic-action-btn-excluir" style="display:inline-block;text-decoration:none;line-height:1.8;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

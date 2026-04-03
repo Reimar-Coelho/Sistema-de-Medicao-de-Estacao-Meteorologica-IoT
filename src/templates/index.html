@@ -3,15 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Principal</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-    <h1>Painel Principal - Últimas Leituras</h1>
-    <button id="refresh-btn">Atualizar Leituras</button>
-    <div id="leituras-container">
-        <!-- Leituras serão inseridas aqui via JavaScript -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-title">
+                <h1>Estação Meteorológica IoT</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+                <li><a href="/historico" class="nav-link">Histórico</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="latest">
+        <h2>Últimas leituras</h2>
+
+        <div id="chart-container" class="three-charts">
+            <div class="single-chart">
+                <h3>Temperatura (°C)</h3>
+                <canvas id="chart-temperatura" aria-label="Gráfico de temperatura" role="img"></canvas>
+            </div>
+            <div class="single-chart">
+                <h3>Umidade (%)</h3>
+                <canvas id="chart-umidade" aria-label="Gráfico de umidade" role="img"></canvas>
+            </div>
+            <div class="single-chart">
+                <h3>Pressão (hPa)</h3>
+                <canvas id="chart-pressao" aria-label="Gráfico de pressão" role="img"></canvas>
+            </div>
+        </div>
+
+        <div id="leituras-container">
+            <!-- Leituras serão inseridas aqui via JavaScript -->
+        </div>
+        <button id="refresh-btn">Atualizar Leituras</button>
     </div>
+    <hr>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../static/js/main.js"></script>
 </body>
 </html>

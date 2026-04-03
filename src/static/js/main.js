@@ -27,11 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
         container.innerHTML = mensagens[tipo] || '<p>Erro desconhecido.</p>';
     }
 
+    let graficoTemperatura = null;
+    let graficoUmidade = null;
+    let graficoPressao = null;
+
     function displayLeituras(leituras) {
         container.innerHTML = '';
 
         if (!Array.isArray(leituras) || leituras.length === 0) {
             container.innerHTML = '<p>Nenhuma leitura encontrada.</p>';
+            updateCharts([]);
             return;
         }
 
@@ -49,6 +54,76 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             container.appendChild(card);
         });
+
+        updateCharts(leituras);
+    }
+
+    function createSingleChart(canvasId, label, color) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        return new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label,
+                    data: [],
+                    borderColor: color,
+                    backgroundColor: `${color}33`,
+                    tension: 0.2,
+                    pointRadius: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Tempo' }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        title: { display: true, text: label }
+                    }
+                }
+            }
+        });
+    }
+
+    function initCharts() {
+        if (!graficoTemperatura) graficoTemperatura = createSingleChart('chart-temperatura', 'Temperatura (°C)', '#e74c3c');
+        if (!graficoUmidade) graficoUmidade = createSingleChart('chart-umidade', 'Umidade (%)', '#3498db');
+        if (!graficoPressao) graficoPressao = createSingleChart('chart-pressao', 'Pressão (hPa)', '#27ae60');
+    }
+
+    function updateCharts(leituras) {
+        initCharts();
+
+        if (!Array.isArray(leituras) || leituras.length === 0) {
+            [graficoTemperatura, graficoUmidade, graficoPressao].forEach(chart => {
+                chart.data.labels = [];
+                chart.data.datasets[0].data = [];
+                chart.update();
+            });
+            return;
+        }
+
+        const sorted = [...leituras].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        const labels = sorted.map(l => new Date(l.timestamp).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }));
+
+        graficoTemperatura.data.labels = labels;
+        graficoTemperatura.data.datasets[0].data = sorted.map(l => Number(l.temperatura));
+
+        graficoUmidade.data.labels = labels;
+        graficoUmidade.data.datasets[0].data = sorted.map(l => Number(l.umidade));
+
+        graficoPressao.data.labels = labels;
+        graficoPressao.data.datasets[0].data = sorted.map(l => Number(l.pressao));
+
+        [graficoTemperatura, graficoUmidade, graficoPressao].forEach(chart => chart.update());
     }
 
     async function loadLeituras() {

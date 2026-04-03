@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Leituras</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-title">
+                <h1>Estação Meteorológica IoT</h1>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="/historico" class="nav-link active">Histórico</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="latest">
+        <h2>Estatísticas Gerais</h2>
+        <div id="estatisticas-container" style="margin-top: 0px;">
+            <p>Carregando estatísticas...</p>
+        </div>
+
+        <h2>Histórico de Leituras</h2>
+
+        <div class="historico-table-wrapper">
+            <table id="historico-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Temperatura (°C)</th>
+                        <th>Umidade (%)</th>
+                        <th>Pressão (hPa)</th>
+                        <th>Timestamp</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="historico-body">
+                    <tr><td colspan="6">Carregando...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="historic-buttons">
+            <button id="refresh-historico">Atualizar Histórico</button>
+        </div>
+
+    </div>
+
+    <script src="../static/js/historico.js"></script>
+</body>
+</html>

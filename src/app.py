@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, redirect
 from flask_cors import CORS
 from database import get_db_connection, init_db, inserir_leitura, buscar_leitura, atualizar_leitura, deletar_leitura
 
@@ -22,6 +22,8 @@ def index():
     conn.close()
     return jsonify([dict(leitura) for leitura in leituras])
 
+
+
 @app.route('/leituras', methods=['GET'])
 def listar():
     conn = get_db_connection()
@@ -38,7 +40,6 @@ def criar():
     id_novo = inserir_leitura(dados['temperatura'], dados['umidade'], dados['pressao'])
     return jsonify({'id': id_novo, 'status': 'criado'}), 201
 
-# ✅ CORRIGIDO: parâmetro "id" adicionado nas funções abaixo
 @app.route('/leituras/<int:id>', methods=['GET'])
 def detalhe(id):
     leitura = buscar_leitura(id)
@@ -65,6 +66,45 @@ def deletar(id):
     deletar_leitura(id)
     return jsonify({'id': id, 'status': 'deletado'})
 
+@app.route('/historico', methods=['GET'])
+def historico():
+    return render_template('historico.html')
+
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    leitura = buscar_leitura(id)
+    if not leitura:
+        return 'Leitura não encontrada', 404
+
+    if request.method == 'POST':
+        temperatura = request.form.get('temperatura')
+        umidade = request.form.get('umidade')
+        pressao = request.form.get('pressao')
+
+        if not temperatura or not umidade or not pressao:
+            return 'Dados inválidos', 400
+
+        try:
+            dados = {
+                'temperatura': float(temperatura),
+                'umidade': float(umidade),
+                'pressao': float(pressao)
+            }
+        except ValueError:
+            return 'Valores devem ser numéricos', 400
+
+        atualizar_leitura(id, dados)
+        return redirect('/historico')
+
+    return render_template('editar.html', leitura=leitura)
+
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    return render_template('index.html')
+
+
 @app.route('/api/estatisticas', methods=['GET'])
 def estatisticas():
     conn = get_db_connection()
@@ -83,7 +123,6 @@ def estatisticas():
     ''').fetchone()
     conn.close()
 
-    # ✅ CORRIGIDO: campos estavam embaralhados no original
     return jsonify({
         'temperatura_media':  stats['temp_media'],
         'temperatura_minima': stats['temp_min'],
