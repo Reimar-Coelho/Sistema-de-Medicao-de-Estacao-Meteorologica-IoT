@@ -16,12 +16,15 @@ def add_cors_headers(response):
 
 @app.route('/', methods=['GET'])
 def index():
+    return redirect('/dashboard')
+
+@app.route('/ultimas', methods=['GET'])
+def ultimas():
     init_db()
     conn = get_db_connection()
     leituras = conn.execute('SELECT * FROM leituras ORDER BY timestamp DESC LIMIT 10').fetchall()
     conn.close()
     return jsonify([dict(leitura) for leitura in leituras])
-
 
 
 @app.route('/leituras', methods=['GET'])

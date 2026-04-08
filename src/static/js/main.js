@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('leituras-container');
     const refreshBtn = document.getElementById('refresh-btn');
-    const API_URL = 'http://localhost:5000/';
+    const API_URL = 'http://localhost:5000/ultimas';
     const INTERVALO_MS = 30000;
 
     let isLoading = false; // evita requisições simultâneas
