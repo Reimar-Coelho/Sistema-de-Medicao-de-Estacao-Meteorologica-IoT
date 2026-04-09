@@ -76,3 +76,7 @@ A aplicação Flask expõe rotas para navegação visual em HTML e controle de d
 - **`POST /leituras`**: Rota principal consumida pelo serviço leitor da serial (*serial_reader.py*). Insere as leituras de *temperatura*, *umidade* e *pressao*.
 - **`GET /leituras/<id>`**, **`PUT /leituras/<id>`**, **`DELETE /leituras/<id>`**: API CRUD individual por ID. (Respectivamente servem para: Consultar uma única leitura, atualizar por JSON payload e apagar um registro).
 - **`GET /api/estatisticas`**: Devolve agregações base do banco como médias (AVG), valores mínimos (MIN) e valores máximos (MAX) capturados em toda a base da aplicação (ajuda a preencher os visuais da dashboard principal).
+
+## Circuito
+
+![Circuito](circuito.png)
